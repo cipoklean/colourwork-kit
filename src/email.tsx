@@ -5,10 +5,14 @@ import { webFonts } from "./fonts";
 import { colourworkTheme } from "./theme";
 import type { ParsedChart } from "./types";
 
-/** The email's content column is 552px inside its 24px side padding; cap cells at 18px. */
+/**
+ * Email cells are sized for the phone, not the desktop. TableRow has no phone height, so a
+ * desktop-sized cell would get narrower on a phone while its row stayed tall, stretching the
+ * motif. Fitting the chart into a 380px phone's 332px content column keeps every stitch square
+ * in every client. 312px leaves room for the frame; cells stay between 8px and 18px.
+ */
 function emailCell(chart: ParsedChart): number {
-  const numberCols = chart.mode === "flat" ? 2 : 1;
-  return Math.max(8, Math.min(18, Math.floor(540 / (chart.width + numberCols * 0.6))));
+  return Math.max(8, Math.min(18, Math.floor(312 / chart.width)));
 }
 
 /** One or two sentences of newsletter copy before the chart, built from the chart's own facts. */

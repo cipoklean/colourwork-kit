@@ -12,7 +12,7 @@ All three are built with [Hyper Elements](https://hyperelements.dev) (`@hyper-el
 |---|---|---|---|---|
 | ![Email in classic Outlook](docs/email-outlook.png) | ![Email in the Gmail app](docs/email-gmail-app.png) | ![PDF chart page](docs/pdf-chart.png) | ![PDF instructions page](docs/pdf-instructions.png) | ![Share card](docs/card.png) |
 
-The email screenshots come from Hyper Elements' email-client emulator (`@hyper-elements/email-clients`). The Outlook preview lists "Missing: font Georgia" because the emulator machine has no Georgia; real Outlook on Windows does.
+The email screenshots come from Hyper Elements' email-client emulator (`@hyper-elements/email-clients`).
 
 ## Why
 
@@ -66,7 +66,7 @@ A yarn shop's pattern leaflet, not a newspaper: undyed-wool paper (`#f2ede4`), a
 | Named styles | `src/theme.ts` | `label`, `number`, `muted`, `standfirst`, `designer`, `caption`, shared by all three outputs |
 | `Heading` levels | `src/theme.ts` | Level 1 is the serif title (smaller on phones in email); level 2 is the small sans section heading: Yarn, Written instructions, Checks |
 | `defineElement` | `src/elements.tsx` | Three custom elements with typed, validated props, shared by every output: `ColourChart` (rows, key, mode, cell size, repeat range, symbols, tracker, merged runs), `YarnKey` (swatch, code, name, stitches, yards) and `Masthead` (kicker, title, standfirst, greeting merge tag, fit-to-one-line title) |
-| Shared chart | `src/elements.tsx` | `ColourChart` is `Table`, `TableRow` and `TableCell`, one cell per stitch in its yarn colour: sized to the page in the PDF and card, 18px merged in the email; row numbers on the correct side, stitch numbers along the bottom, a heavier line every ten and around the repeat |
+| Shared chart | `src/elements.tsx` | `ColourChart` is `Table`, `TableRow` and `TableCell`, one cell per stitch in its yarn colour: sized to the page in the PDF and card; in the email, sized to fit a 380px phone (13px for a 24-stitch chart), because a table row has no phone height and a wider cell would stretch the motif; row numbers on the correct side, stitch numbers along the bottom, a heavier line every ten and around the repeat |
 | Run merging | `src/elements.tsx` | `merged` draws same-colour neighbours as one `colSpan` cell with no internal gridlines — the email's 600 stitch cells become ~115, holding the file at 87 KB; `rowNumbers={false}` drops the row-number column for the same reason (the PDF keeps it) |
 | `symbols` + contrast pick | `src/elements.tsx` | Prints each non-MC cell's key character in ink or reversed, chosen by the yarn's luminance, so the PDF still reads printed in black and white |
 | `MergeTag` | `src/elements.tsx`, `src/email.tsx` | The masthead's `greetingMergeTag` writes "Hi {{first_name}}." for the sending service to fill, ahead of a standfirst sentence derived from the chart ("Four colours, a 24-stitch repeat, worked in the round.") |
@@ -103,7 +103,7 @@ npx tsx scripts/render-pdf.tsx charts/sampler-flat.chart
 
 | Command | Writes |
 |---|---|
-| `npm run render:email` | `out/email/fernhill.email.html` and `.txt` (89,440 bytes — under Gmail's 102 KB clip) |
+| `npm run render:email` | `out/email/fernhill.email.html` and `.txt` (89,403 bytes — under Gmail's 102 KB clip) |
 | `npm run preview:email` | The above, plus one HTML preview per client in `out/email/previews/` (not committed; run this to make them). Open them in Chrome or Chromium |
 | `npm run render:pdf` | `out/fernhill.pdf`, `out/fernhill.print.html` |
 | `npm run render:card` | `out/fernhill-card.png`, `out/fernhill-card.svg` |

@@ -82,7 +82,7 @@ export const ColourChart = defineElement({
     const gapW = Math.max(4, Math.round(cell * 0.22));
     const numSize = Math.max(6, Math.round(cell * 0.3));
     const symSize = Math.round(cell * 0.44);
-    const colNumSize = Math.max(5, Math.round(cell * 0.26));
+    const colNumSize = Math.max(7, Math.round(cell * 0.26));
     const numPad = Math.max(0, Math.floor((cell - numSize) / 2));
     const frameW = Math.max(2, Math.round(cell / 18));
 
