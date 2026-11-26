@@ -18,8 +18,9 @@ try {
   if (diagnostics.length) console.log(formatDiagnostics(diagnostics));
   await writeFile(`out/email/${base}.email.html`, html);
   await writeFile(`out/email/${base}.email.txt`, text);
-  const kb = (html.length / 1024).toFixed(1);
-  console.log(`wrote out/email/${base}.email.html and .txt — ${html.length} bytes (${kb} KB${html.length > 90 * 1024 ? ", OVER the 90 KB budget" : ""})`);
+  const bytes = Buffer.byteLength(html);
+  const kb = (bytes / 1024).toFixed(1);
+  console.log(`wrote out/email/${base}.email.html and .txt — ${bytes} bytes (${kb} KB${bytes > 90 * 1024 ? ", OVER the 90 KB budget" : ""})`);
   if (process.argv.includes("--preview")) {
     const { previews, skipped } = await renderInEmailClients(design, {
       emailClients: ["outlook", "gmail-app", "apple-mail"],
